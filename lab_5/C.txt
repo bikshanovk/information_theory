@@ -1,0 +1,220 @@
+// inf_th_l1.cpp:
+#include "stdafx.h"
+#include <math.h> 
+#include <cmath>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <conio.h>
+using namespace std;
+int CurCode, //Current code
+PrevCode, 	// code
+L,
+S,DicPos;
+char M[29],
+	C[1500][29],
+	ret[15],
+	curr;//
+FILE *file, *EncodedFile;
+int prev=0, 
+	lenght=0,
+	n=0,				//Alphabet power
+	freq [127],
+	freq2 [127][127],
+	sorted[30],
+	//C[29][29],
+	//L[29],
+	i=0;
+
+float q=0,
+	  probability [127];
+struct MyStruct			//
+{
+	float prob;
+	int C[29];
+	int L;
+		//
+		//
+};
+MyStruct *Ptemp, *Mas;
+int found();
+void print (int code, int order);
+int	 Mapping (int n); //Creates mapping f:Sorce->Destin, where Source={97, 98, letter_ascii_codes,...} and Destinaton={1, 2, ..., n}).
+int  main    (int argc, char* argv[])
+{
+	//Change window size:
+	system("mode con cols=50 lines=59"); 
+   // system("pause >> void"); 
+
+//Reading of console parameters:
+char* file_name = argv[1];
+//Lab 5 code
+//FW debug
+//Initialize ascii_table
+for (int i=0; i<127; i++)
+{
+	C[i][0]=(char)i;
+}
+
+for (int i=0; i<127; i++)
+{
+	printf("%c",C[i]);
+}
+//end init
+//End FW debug
+
+S=9; L=0; DicPos=257;
+file = fopen( file_name, "r" );
+EncodedFile = fopen ("Enc.txt", "w");
+int cntr =0;
+while (!feof(file))
+{
+		//Read symbol from file:
+		curr=fgetc(file);
+		//if(curr<0) curr*=-1;
+		//if (curr==-1) break;
+		////Case Correction
+		//if ((curr<32) && (curr>126)) 
+		//{
+		//	curr=33;
+		//}
+		////End case correction
+		////End read symbol from file
+		CurCode=curr;
+		cntr++;
+	
+		//End read symbol from file
+
+	M[L]=CurCode; L++;
+	if (found()!=EOF) //If current sequence in the vocab
+				CurCode=found();
+	else//if NOT
+			{
+				strcpy (C[DicPos], M);
+				DicPos++;
+				float temp= ceil( log((float)DicPos)/log((float)2)+1);
+				if (temp>S) S++;
+				//fprintf(EncodedFile, "%d ", PrevCode);//Write to file!
+				//printf("Code=%d; S=%d;\n", PrevCode, S);
+				print(PrevCode, S); //Output to file
+				for (int i=0; i<29; i++) 
+				M[i]=0;
+				M[0]=CurCode; L=1;
+			}
+			PrevCode=CurCode;
+//			getchar();
+}
+//printf("Code=%d; S=%d;\n", PrevCode, S);
+//fprintf(EncodedFile, "%d ", PrevCode);
+print(PrevCode, S);//Output to file
+//fputs(C[PrevCode], EncodedFile);
+//Debug segment
+int k=128;
+while (strlen(C[k])!=0)
+{
+	printf ("%d - ", k);
+	puts(C[k]);
+	//fputc(i, EncodedFile);
+	//fputs(C[k],EncodedFile);
+	k++;
+
+}
+//END Debug segment
+
+//end lab 5 code
+
+printf("CNTR= %d\n", cntr);
+
+fclose(EncodedFile);
+
+//Convert int to binary
+////int x, y;
+////x=51; string str;
+////int *T=new int[8];
+//////char ret[15];
+////for (int i=0; i<8; i++)
+////{
+////	//printf("%d",T[i] );
+////	T[i]= (x % 2);
+////	//printf("%d",T[i] );
+////	x/=2;
+////}
+////x=7; y=0;
+////while (x>=0)
+////{
+////	ret[y]=T[x]+48;
+////	y++; x--;
+////}
+////puts(ret);
+
+//end int to binary
+//while (x > 0)
+//{
+//	printf("%d",x % 2 );
+//	x/=2;
+//}
+
+	getchar();
+	return 0;
+}
+int Mapping (int code)
+{
+	if (code == 32) {return 27;}
+	else if (code == 33) {return 28;}
+	
+	switch ( code ) {
+case 97:
+  return 1;
+  break;
+case 98:
+  return 2;
+  break;
+case 99:
+  return 3;
+  break;
+case 100:
+  return 4;
+  break;
+default:
+  
+  break;
+}
+	if (code>=100)
+	{
+		code=code+4-100;
+	}
+
+	return code;
+}
+int found()
+{
+	for (int i=0; i<1500; i++)
+		{
+			if (strcmp(C[i],M)==0)
+			{ 
+				return i;
+			}
+		}
+	return -1;
+}
+void print (int code , int order)
+{
+int x, y;
+x=code;
+int *T=new int[order];
+//char ret[15];
+for (int i=0; i<order; i++)
+{
+	T[i]= (x % 2);
+	x/=2;
+}
+x=order-1; y=0;
+while (x>=0)
+{
+	ret[y]=T[x]+48;
+	y++; x--;
+}
+fputs(ret,EncodedFile);
+
+}

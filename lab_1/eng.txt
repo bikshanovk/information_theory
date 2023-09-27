@@ -1,0 +1,24 @@
+More and more, it is networks that connect us. People communicate online from everywhere. Efficient, dependable technology enables networks to be available whenever and wherever we need them. As our human network continues to expand, the platform that connects and supports it must also grow.
+
+Rather than developing unique and separate systems for the delivery of each new service, the network industry as a whole has developed the means to both analyze the existing platform and enhance it incrementally. This ensures that existing communications are maintained while new services are introduced that are both cost effective and technologically sound.
+
+In this course, we focus on these aspects of the information network:
+Devices that make up the network
+Media that connect the devices
+Messages that are carried across the network
+Rules and processes that govern network communications
+Tools and commands for constructing and maintaining networks
+
+Central to the study of networks is the use of generally-accepted models that describe network functions. These models provide a framework for understanding current networks and for facilitating the development of new technologies to support future communications needs.
+
+Within this course, we use these models, as well as tools designed to analyze and simulate network functionality. Two of the tools that will enable you to build and interact with simulated networks are Packet Tracer 4.1 software and Wireshark network protocol analyzer.
+
+This chapter prepares you to: 
+Describe the structure of a network, including the devices and media that are necessary for successful communications.
+Explain the function of protocols in network communications.
+Explain the advantages of using a layered model to describe network functionality.
+Describe the role of each layer in two recognized network models: The TCP/IP model and the OSI model.
+Describe the importance of addressing and naming schemes in network communications.
+
+
+
